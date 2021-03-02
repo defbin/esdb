@@ -1,0 +1,24 @@
+{
+    "[go]": {
+      "editor.defaultFormatter": "golang.go",
+      "editor.insertSpaces": false,
+    },
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "editor.rulers": [
+      80,
+      100
+    ],
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 4,
+    "files.insertFinalNewline": true,
+    "go.lintOnSave": "workspace",
+    "go.lintTool": "golangci-lint",
+    "gopls": {
+      "formatting.gofumpt": true,
+      "formatting.local": "github.com/defbin/esdb"
+    },
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.labelFormat": "short"
+  }
