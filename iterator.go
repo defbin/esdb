@@ -1,28 +1,31 @@
 package esdb
 
 import (
-	"time"
-
-	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/iterator"
-	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
 type iteratorImpl struct {
 	iter iterator.Iterator
 }
 
-func newIterator(db *leveldb.DB, slice *util.Range) Iterator {
-	return &iteratorImpl{db.NewIterator(slice, nil)}
+func newIterator(it iterator.Iterator) Iterator {
+	return &iteratorImpl{it}
 }
 
 func (it *iteratorImpl) Next() bool {
 	return it.iter.Next()
 }
 
-func (it *iteratorImpl) Value() (uint64, time.Time, []byte) {
-	_, offset, timestamp := parseKey(it.iter.Key())
-	return offset, timestamp, it.iter.Value()
+func (it *iteratorImpl) Key() Offset {
+	_, offset, _ := parseKey(it.iter.Key())
+	return offset
+}
+
+func (it *iteratorImpl) Value() []byte {
+	// underlying byte slice can be reused and changed when Value() is called
+	value := it.iter.Value()
+	// make copy to keep original data
+	return append([]byte{}, value...)
 }
 
 func (it *iteratorImpl) Release() {
