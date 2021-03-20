@@ -1,5 +1,7 @@
 package esdb
 
+import "time"
+
 type Offset uint32
 
 type EventStore interface {
@@ -10,7 +12,7 @@ type EventStore interface {
 
 type Iterator interface {
 	Next() bool
-	Key() Offset
+	Key() ([]byte, Offset, time.Time)
 	Value() []byte
 	Release()
 	Error() error

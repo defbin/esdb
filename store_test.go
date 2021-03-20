@@ -103,7 +103,7 @@ func fetchEventStoreData(t *testing.T, es EventStore, ns string, offset Offset) 
 	defer it.Release()
 
 	for i := 0; it.Next(); i++ {
-		offset := it.Key()
+		_, offset, _ := it.Key()
 		data := it.Value()
 		records = append(records, testRecord{offset: offset, data: data})
 	}

@@ -1,6 +1,8 @@
 package esdb
 
 import (
+	"time"
+
 	"github.com/syndtr/goleveldb/leveldb/iterator"
 )
 
@@ -16,9 +18,8 @@ func (it *iteratorImpl) Next() bool {
 	return it.iter.Next()
 }
 
-func (it *iteratorImpl) Key() Offset {
-	_, offset, _ := parseKey(it.iter.Key())
-	return offset
+func (it *iteratorImpl) Key() ([]byte, Offset, time.Time) {
+	return parseKey(it.iter.Key())
 }
 
 func (it *iteratorImpl) Value() []byte {

@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	offsetSize = 8
+	offsetSize = 4
 	timeSize   = 8
 )
 
